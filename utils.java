@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class utils {
 
     public void linhas(){
@@ -11,7 +13,7 @@ public class utils {
         System.out.println("[1] - Criar Time;");
         System.out.println("[2] - Mostrar Times;");
         System.out.println("[3] - Remover Time;");
-        System.out.println("[4] - Cadastrar Jogado;");
+        System.out.println("[4] - Cadastrar Jogador;");
         System.out.println("[5] - Remover Jogador;");
         System.out.println("[6] - Mostrar Jogadores");
         System.out.println("[7] - Marcar Partidas;");
@@ -22,8 +24,22 @@ public class utils {
 
     }
     public void limpar_tela(){
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
     }
+
+    public void mostrar_time(ArrayList<Time> times){
+        for(Time aux2:times){
+            aux2.mostrarTime();
+        }
+    }
+
+    public void mostrar_jogadores(ArrayList<Jogador> jogadores){
+        for(Jogador aux2:jogadores){
+            aux2.mostrarInformacoes();
+        }
+    }
+
+
 
 }
