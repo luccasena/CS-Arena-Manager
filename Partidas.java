@@ -11,7 +11,7 @@ public class Partidas{
     private String time1;
     private String time2;
     private ArrayList<String> mapas = new ArrayList<String>();
-    private Time vencedor;
+    private String vencedor;
 
     int id_aux = 0;
 
@@ -26,11 +26,53 @@ public class Partidas{
         id_aux++;
     }
 
-    public void setVencedor(Time vencedor){
+    public void setVencedor(String vencedor){
         this.vencedor = vencedor;
     }
+    public void adicionaMapa(String mapa){
+        this.mapas.add(mapa);
+    }
     public void mostrarHistorico(){
+        System.out.println("Informações da partida:");
+        System.out.println("ID: " + idPartida);
+        System.out.println("Dia: " + dia);
+        System.out.println("Horario: " + horario);
+        System.out.println("Time: " + time1);
+        System.out.println("Time: " + time2);
 
+        if(vencedor != null){
+            System.out.println("Vencedor: " + vencedor);
+        } else {
+            System.out.println("Vencendor: A definir");
+        }
+        System.out.println("Mapas Jogados:");
+        if ((mapas.isEmpty())){
+            System.out.println("Nenhum mapa registrado!");
+        } else{
+            for(String mapa: mapas){
+                System.out.println("-" + mapa);
+            }
+        }
+        System.out.println("---------------------------");
+    }
+
+    public int getIdPartida(){
+        return idPartida;
+    }
+
+    public String getTime1(){
+        return time1;
+    }
+
+    public String getTime2(){
+        return time2;
+    }
+
+    public void atualizarPartida(){
+        System.out.println("\n Id da partida:" + idPartida);
+        System.out.println(time1 + "X" + time2);
+        System.out.println("Vencedor: " + vencedor);
+        System.out.println("Mapas Jogados: " + mapas);
     }
 
 }
