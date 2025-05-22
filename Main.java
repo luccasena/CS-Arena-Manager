@@ -113,10 +113,11 @@ public class Main {
 
                     break;
                 case 8:
-                    // Feature a ser produzida
+                    // Feature Concluida
                     System.out.println("Histórico de Partidas");
                     aux.linhas();
 
+                    partida.mostrarHistorico();
 
 
                     break;
@@ -131,6 +132,7 @@ public class Main {
                 case 0:
                     System.out.println("Sair");
                     aux.linhas();
+
 
 
 
