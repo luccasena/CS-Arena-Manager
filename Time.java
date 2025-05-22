@@ -47,13 +47,13 @@ public class Time {
 
         for (int i = 0; i < jogadores.length; i++){
             if(jogadores[i] == null){
-                System.out.printf("  - %dº Vaga não Ocupada!  \n", i+1);
+                System.out.printf("  - %dº Vaga Vazia  \n", i+1);
             }else{
                 System.out.printf("  - %dº Integrante:  %s\n", i+1, jogadores[i]);
             }
 
         }
-        aux.linhas();
+
     }
 
     public String getNomeTime(){

@@ -29,7 +29,7 @@ public class Main {
             switch (escolha){
                 case 1:
                     // Feature Parcialmente Concluída, falta tratamento.
-                    System.out.println("Criar Time");
+                    System.out.println("[1] - Criar Time");
                     aux.linhas();
 
                     criar.time(time);
@@ -39,28 +39,38 @@ public class Main {
                     break;
                 case 2:
                     // Feature Parcialmente Concluída, falta tratamento.
-                    System.out.println("Mostrar Times");
+                    System.out.println("[2] - Mostrar Times");
                     aux.linhas();
+                    if(times.isEmpty()){
+                        System.out.println("Não existe times a serem exibidos...");
+                        System.out.println("Adicione um time selecionando a opção [1]!");
 
-                    aux.mostrar_time(times);
+                    }else{
+                        aux.mostrar_time(times);
+
+                    }
 
                     break;
                 case 3:
                     // Feature a ser produzida
-                    System.out.println("Remover Times");
+                    System.out.println("[3] - Remover Times");
                     aux.linhas();
+                    if(times.isEmpty()){
+                        System.out.println("Não existe times a serem removidos!...");
+                        System.out.println("Adicione um time selecionando a opção [1]!");
 
+                    }else{
 
+                    }
 
                     break;
                 case 4:
                     // Feature Parcialmente Concluída, falta tratamento.
-                    System.out.println("Cadastrar Jogador");
+                    System.out.println("[4] - Cadastrar Jogador");
                     aux.linhas();
                     if(times.isEmpty()){
-                        aux.limpar_tela();
-                        System.out.println("Adicione algum time no sistema para realizar o cadastro do jogador...");
-                        aux.linhas();
+                        System.out.println("Não existe times para o cadastro do Jogador!...");
+                        System.out.println("Adicione um time selecionando a opção [1]!");
 
                     }else{
                         criar.jogador(jogador);
@@ -88,50 +98,87 @@ public class Main {
                     break;
                 case 5:
                     // Feature a ser produzida
-                    System.out.println("Remover Jogador");
+                    System.out.println("[5] - Remover Jogador");
                     aux.linhas();
+                    if(jogadores.isEmpty()){
+                        System.out.println("Não existe jogadores a serem removidos!...");
+                        System.out.println("Adicione um jogador selecionando a opção [4]!");
 
+                    }else{
+
+
+                    }
 
 
                     break;
                 case 6:
                     // Feature Parcialmente Concluída, falta tratamento.
-                    System.out.println("Mostrar Jogadores");
+                    System.out.println("[6] - Mostrar Jogadores");
                     aux.linhas();
 
-                    aux.mostrar_jogadores(jogadores);
+                    if(jogadores.isEmpty()){
+                        System.out.println("Não existe jogadores a serem exibidos!...");
+                        System.out.println("Adicione um jogador selecionando a opção [4]!");
+
+                    }else{
+                        aux.mostrar_jogadores(jogadores);
+
+                    }
 
                     break;
                 case 7:
                     // Feature Parcialmente Concluída, falta tratamento.
 
-                    System.out.println("Marcar Partidas");
+                    System.out.println("[7] - Marcar Partidas");
                     aux.linhas();
 
-                    criar.partida(partida);
-                    partidas.add(partida);
+                    if(times.isEmpty() || times.size() < 2){
+                        System.out.println("Não existe times o suficiente para marcar uma partida...");
+                        System.out.println("Adicione um time selecionando a opção [1]!");
+
+                    }else{
+                        criar.partida(partida);
+                        partidas.add(partida);
+
+                    }
 
                     break;
                 case 8:
                     // Feature a ser produzida
-                    System.out.println("Histórico de Partidas");
+                    System.out.println("[8] - Histórico de Partidas");
                     aux.linhas();
 
+                    if(partidas.isEmpty()){
+                        System.out.println("Não existe partidas a serem exibidas...");
+                        System.out.println("Adicione uma partida selecionando a opção [7]!");
+
+                    }else{
+                        criar.partida(partida);
+                        partidas.add(partida);
+
+                    }
 
 
                     break;
                 case 9:
                     // Feature a ser produzida
-                    System.out.println("Atualizar Partidas");
+                    System.out.println("[9] - Atualizar Partidas");
                     aux.linhas();
 
+                    if(partidas.isEmpty()){
+                        System.out.println("Não existe partidas a serem atualizadas...");
+                        System.out.println("Adicione uma partida selecionando a opção [7]!");
+
+                    }else{
+
+
+                    }
 
 
                     break;
                 case 0:
-                    System.out.println("Sair");
+                    System.out.println("[0] - Sair");
                     aux.linhas();
-
 
 
                     break;
@@ -143,7 +190,6 @@ public class Main {
                     aux.limpar_tela();
                     break;
                 }
-
             }
     }
 }
