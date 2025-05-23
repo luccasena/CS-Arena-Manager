@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Jogador {
     utils aux = new utils();
 
@@ -14,14 +16,21 @@ public class Jogador {
 
     }
 
-    public void mostrarInformacoes(){
-        System.out.println("Informações sobre o Jogador:" );
+
+    public void mostrarInformacoes(ArrayList<Time> times){
         aux.linhas();
         System.out.println("  - Nome Completo:  " + nomeCompleto);
         System.out.println("  - Classe:  " + classe);
         System.out.println("  - Experiência em Anos:  " + experienciaAnos);
         System.out.println("  - Preferência de Mapa:  " + preferenciaMapa);
+
+        for(int i = 0; i < times.size(); i++){
+            if(times.get(i).getJogadores().equals(nomeCompleto)){
+                System.out.println("  - Time Atual:  " + times.get(i).getNomeTime());
+            }
+        }
         aux.linhas();
+        System.out.printf("\n");
 
     }
 
