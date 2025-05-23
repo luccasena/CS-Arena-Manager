@@ -84,4 +84,12 @@ public class Partidas{
 
     }
 
+    public void atualizarPartida(){
+        System.out.println("\n Id da partida:" + idPartida);
+        System.out.println(time1 + "X" + time2);
+        System.out.println("Vencedor: " + vencedor);
+        System.out.println("Mapas Jogados: " + mapas);
+
+    }
+
 }
