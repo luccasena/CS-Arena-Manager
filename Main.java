@@ -113,11 +113,16 @@ public class Main {
 
                     break;
                 case 8:
-                    // Feature Concluida
-                    System.out.println("Histórico de Partidas");
+                    // Feature concluída
+                    System.out.println("[8] - Histórico de Partidas");
                     aux.linhas();
 
-                    partida.mostrarHistorico();
+                    if(partidas.isEmpty()){
+                        System.out.println("Não existe partidas a serem exibidas...");
+                        System.out.println("Adicione uma partida selecionando a opção [7]!");
+
+                    }else{
+                        aux.mostrar_partidas(partidas, 1);
 
 
                     break;

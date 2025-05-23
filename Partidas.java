@@ -12,6 +12,7 @@ public class Partidas{
     private String time2;
     private ArrayList<String> mapas = new ArrayList<String>();
     private String vencedor;
+    private String placar;
 
     int id_aux = 0;
 
@@ -26,10 +27,11 @@ public class Partidas{
         id_aux++;
     }
 
-    public void setVencedor(String vencedor){
+    public void setVencedor(String vencedor, String placar){
         this.vencedor = vencedor;
+        this.placar = placar
     }
-    public void adicionaMapa(String mapa){
+    public void aaddMapa(String mapa){
         this.mapas.add(mapa);
     }
     public void mostrarHistorico(){
