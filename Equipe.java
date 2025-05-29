@@ -1,7 +1,7 @@
 
 import java.util.ArrayList;
 
-public class Time {
+public class Equipe {
     utils aux = new utils();
 
     private int idTime;

@@ -1,23 +1,21 @@
 import java.util.ArrayList;
 
-public class Jogador {
+public class Jogador extends Usuario {
     utils aux = new utils();
 
-    private String nomeCompleto;
     private String classe;
     private int experienciaAnos;
     private String preferenciaMapa;
 
-    public void Jogador(String nomeCompleto, String classe, int experienciaAnos, String preferenciaMapa){
-        this.nomeCompleto = nomeCompleto;
+    public Jogador(String nomeCompleto, String classe, int experienciaAnos, String preferenciaMapa){
+        super.nomeCompleto = nomeCompleto;
         this.classe = classe;
         this.experienciaAnos = experienciaAnos;
         this.preferenciaMapa = preferenciaMapa;
 
     }
 
-
-    public void mostrarInformacoes(ArrayList<Time> times){
+    public void mostrarInformacoes(ArrayList<Equipe> times){
         aux.linhas();
         System.out.println("  - Nome Completo:  " + nomeCompleto);
         System.out.println("  - Classe:  " + classe);

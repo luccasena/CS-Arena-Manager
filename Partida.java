@@ -1,9 +1,7 @@
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class Partidas{
+public class Partida {
     utils aux = new utils();
 
     private int idPartida;
@@ -15,7 +13,7 @@ public class Partidas{
     private String vencedor;
     private String placar;
 
-    public Partidas(int idPartida, String dia, String horario, String time1, String time2){
+    public Partida(int idPartida, String dia, String horario, String time1, String time2){
         this.idPartida = idPartida;
         this.dia = dia;
         this.horario = horario;

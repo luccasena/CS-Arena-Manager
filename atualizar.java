@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class atualizar {
-    public static void partida(ArrayList<Partidas> partidas, ArrayList<Time> times){
+    public static void partida(ArrayList<Partida> partidas, ArrayList<Equipe> times){
         Scanner input = new Scanner(System.in);
         utils aux = new utils();
 
@@ -82,7 +82,7 @@ public class atualizar {
 
                     if (escolher_vencedor == 1) {
                         partidas.get(id_partida).setVencedor(time1, placar);
-                        for (Time aux2 : times) {
+                        for (Equipe aux2 : times) {
                             if (time1 == aux2.getNomeTime()) {
                                 times.get(aux2.getIdTime()).aumentarVitoria();
                             } else if (time2 == aux2.getNomeTime()) {
@@ -92,7 +92,7 @@ public class atualizar {
 
                     } else {
                         partidas.get(id_partida).setVencedor(time2, placar);
-                        for (Time aux2 : times) {
+                        for (Equipe aux2 : times) {
                             if (time2 == aux2.getNomeTime()) {
                                 times.get(aux2.getIdTime()).aumentarVitoria();
                             } else if (time1 == aux2.getNomeTime()) {

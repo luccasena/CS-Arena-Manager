@@ -1,11 +1,10 @@
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class criar {
-    public static void jogador(Jogador jogador ){
+public class Administrador extends Usuario{
+
+    public Jogador criarJogador(){
         utils aux = new utils();
 
         Scanner input = new Scanner(System.in);
@@ -138,11 +137,11 @@ public class criar {
 
         }
 
-        jogador.Jogador(nomeCompleto, classe, experienciaAnos, preferenciaMapa);
+        return new Jogador(nomeCompleto, classe, experienciaAnos, preferenciaMapa);
 
     }
 
-    public static void time(Time time,int id_aux_time){
+    public criartime(Equipe time, int id_aux_time){
 
         Scanner input = new Scanner(System.in);
 
@@ -155,8 +154,7 @@ public class criar {
         time.Time(nomeTime, paisOrigem, id_aux_time);
 
     }
-
-    public static Partidas partida(ArrayList<Time> times, int id_aux_partida){
+    public criarpartida(ArrayList<Equipe> times, int id_aux_partida){
         utils aux = new utils();
         Scanner input = new Scanner(System.in);
 
@@ -205,7 +203,7 @@ public class criar {
             id_time2 = input.nextInt();
             input.nextLine();
 
-            for (Time time : times){
+            for (Equipe time : times){
                 if(id_time2 == time.getIdTime()){
                     achou_time = true;
                     time2Nome = time.getNomeTime();
@@ -222,7 +220,7 @@ public class criar {
 
         }
 
-        return new Partidas(id_aux_partida, dia, horario, time1Nome, time2Nome);
+        return new Partida(dia, horario, time1Nome, time2Nome);
         }
 
 }

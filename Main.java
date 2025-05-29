@@ -10,18 +10,18 @@ public class Main {
 
         utils aux = new utils();
 
-        ArrayList<Time> times = new ArrayList<Time>();
+        ArrayList<Equipe> times = new ArrayList<Equipe>();
         int id_aux_time = 0;
         int id_aux_partida = 0;
 
         ArrayList<Jogador> jogadores = new ArrayList<Jogador>();
-        ArrayList<Partidas> partidas = new ArrayList<Partidas>();
+        ArrayList<Partida> partidas = new ArrayList<Partida>();
 
         while(true){
 
-            Jogador jogador = new Jogador();
-            Time time = new Time();
-            Partidas partida;
+
+            Equipe time = new Equipe();
+            Partida partida;
             int escolha;
 
 
@@ -47,7 +47,7 @@ public class Main {
                     System.out.println("[1] - Cadastrar Time");
                     aux.linhas();
 
-                    criar.time(time, id_aux_time);
+                    Administrador.time(time, id_aux_time);
                     times.add(time);
                     id_aux_time++;
 
@@ -124,7 +124,7 @@ public class Main {
                         boolean encontrou_time = false;
                         int escolha_cadastro;
 
-                        criar.jogador(jogador);
+                        Jogador jogador = Administrador.jogador(jogador);
                         aux.limpar_tela();
 
                         while(true){
@@ -227,7 +227,7 @@ public class Main {
                         System.out.println("Adicione um time selecionando a opção [1]!");
 
                     }else{
-                        partida = criar.partida(times, id_aux_partida);
+                        partida = Administrador.partida(times, id_aux_partida);
 
                         partidas.add(partida);
                         id_aux_partida++;

@@ -41,13 +41,13 @@ public class utils {
 
     }
 
-    public void mostrar_time(ArrayList<Time> times, int choose) {
+    public void mostrar_time(ArrayList<Equipe> times, int choose) {
         if(choose == 1){
-            for (Time aux2 : times) {
+            for (Equipe aux2 : times) {
                 aux2.mostrarTime();
             }
         }else if(choose == 2){
-            for (Time aux2 : times) {
+            for (Equipe aux2 : times) {
                System.out.println("Nome do Time: "+aux2.getNomeTime()+"\nID do Time: "+aux2.getIdTime());
                linhas();
 
@@ -56,7 +56,7 @@ public class utils {
 
     }
 
-    public void mostrar_jogadores(ArrayList<Jogador> jogadores, ArrayList<Time> times, int choose) {
+    public void mostrar_jogadores(ArrayList<Jogador> jogadores, ArrayList<Equipe> times, int choose) {
         if(choose == 1) {
             for (Jogador aux2 : jogadores) {
                 aux2.mostrarInformacoes(times);
@@ -69,13 +69,13 @@ public class utils {
         }
     }
 
-    public void mostrar_partidas(ArrayList<Partidas> partidas, int choose) {
+    public void mostrar_partidas(ArrayList<Partida> partidas, int choose) {
         if(choose == 1){
-            for (Partidas aux2 : partidas) {
+            for (Partida aux2 : partidas) {
                 aux2.mostrarHistorico();
             }
         }else if(choose == 2){
-            for (Partidas aux2 : partidas) {
+            for (Partida aux2 : partidas) {
                 System.out.println(aux2.getTime1()+" x "+aux2.getTime2()+"\nID da partida: "+aux2.getIdPartida());
                 linhas();
             }
