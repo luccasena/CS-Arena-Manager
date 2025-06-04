@@ -501,7 +501,6 @@ public class Administrador extends Usuario implements acessoPlataforma{
 							System.out.println("Adicione um jogador selecionando a opção [4]!");
 
 						}else{
-
 							equipeController.mostrarEquipesJogadores(2);
 							System.out.println("Digite o nome do jogador para remove-lo:");
 							String nomeJogador = input.nextLine();
@@ -515,10 +514,16 @@ public class Administrador extends Usuario implements acessoPlataforma{
 
 										equipe.rmvJogador(equipe.getJogadores().remove(j));
 										System.out.println("Jogador " + nomeJogador + " removido com sucesso!");
-										
+										break;
 
-										return; // ou break se quiser continuar
+									}else{
+										equipeController.nenhumJogador();
+										util.limpar_tela();
+										System.out.println("ERRO: Jogador '" +nomeJogador+ "' não encontrado!");
+
 									}
+
+
     }
 							}
 
