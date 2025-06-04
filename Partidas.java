@@ -38,8 +38,8 @@ public class Partidas{
 
         boolean mapa_vazio = false;
 
-        System.out.println("  - ID da partida:  " + idPartida);
-        aux.linhas();
+        System.out.println("[%d] - Identificador da Partida:");
+
         System.out.println("  - "+time1+" X "+time2);
         System.out.println("  - Dia:  " + dia);
         System.out.println("  - Horario:  " + horario);

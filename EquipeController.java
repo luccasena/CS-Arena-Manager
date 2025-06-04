@@ -17,7 +17,6 @@ public class EquipeController {
 	}
 
 	public void setIdEquipe(int choose){
-		
 		if(choose == 1){
 			this.id_aux_equipe = this.id_aux_equipe+1;
 		}else if(choose == -1){

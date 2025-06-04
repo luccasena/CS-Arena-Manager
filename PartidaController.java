@@ -9,6 +9,7 @@ public class PartidaController {
 	public PartidaController(Partida partida) {
 		this.partidas = new ArrayList<Partida>();
 	}
+	
 	public PartidaController() {
 		this.partidas = new ArrayList<Partida>();
 	}
@@ -17,14 +18,17 @@ public class PartidaController {
 		partidas.add(partida);
 	}
 
-	public void setIdPartida(int id_aux_partida){
-		this.id_aux_partida = id_aux_partida;
+	public void setIdPartida(int choose){
+		if(choose == 1){
+			this.id_aux_partida = this.id_aux_partida+1;
+		}else if(choose == -1){
+			this.id_aux_partida = this.id_aux_partida-1;
+		}
 	}
 
 	public int getIdPartida(){
 		return this.id_aux_partida;
 	}
-
 
 	public ArrayList<Partida> getPartidas() {
 		return partidas;
@@ -35,7 +39,12 @@ public class PartidaController {
 	}
 
 	public void mostrarPartidas(int choose) {
+
 		if(choose == 1){
+
+			for(Partida aux_partida: partidas){
+				aux_partida.mostrarDetalhes();
+		}
 
 		}else if(choose == 2){
 

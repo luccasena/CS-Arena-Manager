@@ -1,8 +1,9 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Administrador extends Usuario implements acessoPlataforma{
 
@@ -166,6 +167,9 @@ public class Administrador extends Usuario implements acessoPlataforma{
 		utils aux = new utils();
         Scanner input = new Scanner(System.in);
 
+		DateTimeFormatter formatter_day = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		DateTimeFormatter formatter_hora = DateTimeFormatter.ofPattern("HH:mm");
+
         String equipe1Nome = "";
         int id_equipe1 = 0;
         String equipe2Nome = "";
@@ -173,20 +177,44 @@ public class Administrador extends Usuario implements acessoPlataforma{
 
         boolean achou_equipe = false;
 
-        System.out.println("Digite a data da partida (MM/DD/AAAA): ");
-        String diaStr = input.nextLine();
-		LocalDate dia = LocalDate.parse(diaStr);
 
-        System.out.println("Digite o horário da partida (HH:MM): ");
-        String horarioStr = input.nextLine();
-		LocalDateTime horario = LocalDateTime.parse(horarioStr);
+		LocalDate dia = null;
+		LocalTime horario = null;
+
+		while(true){
+			try {
+				System.out.println("Digite a data da partida MM/DD/AAAA: ");
+				String diaStr = input.nextLine();
+				dia = LocalDate.parse(diaStr, formatter_day);
+
+			}catch(Exception e){
+				System.out.println("Data inválida! Formato correto: MM/DD/AAAA ");
+			}
+			if(dia != null){
+				break;
+			}
+
+		}
+
+		while(true){
+			try {
+				System.out.println("Digite o horário da partida (HH:MM): ");
+				String horarioStr = input.nextLine();
+				horario = LocalTime.parse(horarioStr, formatter_hora);
+
+			} catch (Exception e) {
+				System.out.println("Data inválida! Formato correto: MM/DD/AAAA ");
+			}if(horario != null){
+				break;
+			}
+		}
 
         aux.linhas();
 
         while(true) {
 
-			equipes.mostrarEquipesJogadores(2);
-            System.out.println("1- Digite o ID de um equipe: ");
+			equipes.mostrarEquipesJogadores(0);
+            System.out.println("\n1- Digite o ID de um equipe: ");
             id_equipe1 = input.nextInt();
 
             for (int i = 0; i < equipes.getEquipes().size(); i++) {
@@ -200,22 +228,27 @@ public class Administrador extends Usuario implements acessoPlataforma{
                 break;
             } else {
                 aux.limpar_tela();
-                System.out.println("equipe não encontrado! Tente novamente...");
+                System.out.println("Equipe não encontrada! Tente novamente...");
                 aux.linhas();
             }
         }
 
         aux.linhas();
-        while(true){
-            aux.limpar_tela();
+		achou_equipe = false;
 
-            equipes.mostrarEquipesJogadores(2);
-            System.out.println("2- Digite o ID de um equipe: ");
+        while(true){
+            
+
+            equipes.mostrarEquipesJogadores(0);
+            System.out.println("\n2- Digite o ID de um equipe: ");
             id_equipe2 = input.nextInt();
 
             input.nextLine();
 
             for (int i = 0; i < equipes.getEquipes().size(); i++) {
+				if (id_equipe1 == id_equipe2){
+					break;
+				}
                 if (id_equipe2 == equipes.getEquipe(i).getIdEquipe()) {
                     equipe2Nome = equipes.getEquipe(i).getNomeEquipe();
                     achou_equipe = true;
@@ -226,11 +259,10 @@ public class Administrador extends Usuario implements acessoPlataforma{
                 break;
             }else{
                 aux.limpar_tela();
-                System.out.println("equipe não encontrado! Tente novamente...");
+                System.out.println("Equipe não encontrada ou ID repetido! Tente novamente...");
                 aux.linhas();
             }
-
-        }
+    	}
 
 		return new Partida(id_aux_partida, dia, horario, equipe1Nome, equipe2Nome);
 	}
@@ -340,7 +372,7 @@ public class Administrador extends Usuario implements acessoPlataforma{
 							System.out.println("Informações sobre as Equipes:" );
 							util.linhas();
 							equipeController.mostrarEquipesJogadores(1);
-							System.out.println("\nPressione qualquer tecla para voltar ao menu...");
+							System.out.println("\nPressione Enter tecla para voltar ao menu...");
             				input.nextLine(); 
 							util.limpar_tela();
 
@@ -496,9 +528,10 @@ public class Administrador extends Usuario implements acessoPlataforma{
 					case 6:
 						// Feature  Concluída.
 						System.out.println("[6] - Mostrar Jogadores");
-						util.linhas();
+
 
 						if(equipeController.nenhumJogador()){
+							util.linhas();
 							System.out.println("Não existe jogadores a serem exibidos!...");
 							System.out.println("Adicione um jogador selecionando a opção [4]!");
 
@@ -528,8 +561,8 @@ public class Administrador extends Usuario implements acessoPlataforma{
 							Partida partida_aux = criarPartida(equipeController, partidaController.getIdPartida());
 							
 							partidaController.addPartida(partida_aux);
+							partidaController.setIdPartida(1);
 
-							id_util_partida++;
 							util.limpar_tela();
 							System.out.println("Partida marcada com sucesso!");
 
@@ -547,7 +580,9 @@ public class Administrador extends Usuario implements acessoPlataforma{
 							System.out.println("Adicione uma partida selecionando a opção [7]!");
 
 						}else{
-							partidaController.mostrarPartidas(2);
+							partidaController.mostrarPartidas(1);
+							System.out.println("\nPressione Enter tecla para voltar ao menu...");
+							input.nextLine();
 
 						}
 
