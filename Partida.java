@@ -1,11 +1,9 @@
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 
 public class Partida extends Administrador {
 
@@ -67,6 +65,5 @@ public class Partida extends Administrador {
 		util.linhas();
 
 	}
-
 
 }

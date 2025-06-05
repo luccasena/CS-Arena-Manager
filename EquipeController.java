@@ -5,7 +5,6 @@ public class EquipeController {
 
 	private ArrayList<Equipe> equipes;
 	private int id_aux_equipe;
-	private int id_util_equipe;
 
 	public EquipeController() {
 		this.equipes = new ArrayList<Equipe>();
@@ -77,7 +76,7 @@ public class EquipeController {
 		return true;
 	}
 
-	public boolean equipeCheia(){
+	public boolean equipesCheia(){
 		for(Equipe auxEquipe: equipes){
 			if(auxEquipe.getQuantJogador() != 5){
 				return false;

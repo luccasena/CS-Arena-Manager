@@ -60,8 +60,6 @@ public class Main {
 
                     jogador.acessarPerfil(senha, equipeController, partidaController);
 
-                
-
                     break;
                 case 3:
                     // Feature a ser produzida
@@ -72,8 +70,7 @@ public class Main {
                     System.out.println("Digite seu nome: ");
                     String nomeCompleto = input.nextLine();
                     Visitante visitante = new Visitante(nomeCompleto);
-                    
-                    
+                
 
                     visitante.acessarPerfil(equipeController, partidaController);
 

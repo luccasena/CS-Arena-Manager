@@ -1,7 +1,5 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -318,12 +316,9 @@ public class Administrador extends Usuario implements acessoPlataforma{
 
 			Equipe equipe;
 
-			int id_util_equipe = 0;
-			int id_util_partida = 0;
-	
 			while(true){
 
-				Partidas partida;
+				Partida partida;
 				int escolha;
 
 				while(true) {
@@ -432,7 +427,7 @@ public class Administrador extends Usuario implements acessoPlataforma{
 							System.out.println("Não existe Equipes para o cadastro do Jogador!...");
 							System.out.println("Adicione um Equipe selecionando a opção [1]!");
 
-						}else if(equipeController.equipeCheia()){
+						}else if(equipeController.equipesCheia()){
 							System.out.println("Equipes cheias para o cadastro do Jogador!...");
 							System.out.println("Adicione um Equipe selecionando a opção [1]!");
 							
@@ -452,6 +447,8 @@ public class Administrador extends Usuario implements acessoPlataforma{
 								System.out.println("Digite o ID do Equipe desejado para o cadastro do jogador: ");
 
 								int id_Equipe = input.nextInt();
+								equipeController.getEquipe(id_Equipe);
+
 								util.limpar_tela();
 
 								for (int i = 0; i < equipeController.getEquipes().size(); i++) {
