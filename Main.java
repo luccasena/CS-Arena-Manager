@@ -1,14 +1,18 @@
 // Bibliotecas
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String []args){
 
         Scanner input = new Scanner(System.in);
         utils aux = new utils();
+
         String senha;
+        int id_equipe;
+        boolean achou_equipe = false;
+        boolean achou_senha = false;
+        Jogador jogador = new Jogador();
 
         EquipeController equipeController = new EquipeController();
         PartidaController partidaController = new PartidaController();
@@ -16,7 +20,6 @@ public class Main {
         while(true){
 
             int escolha;
-
 
             while(true) {
                 try {
@@ -54,13 +57,61 @@ public class Main {
                     System.out.println("[2] - Jogador;");
                     aux.linhas();
 
-                    Jogador jogador = new Jogador();
-                    System.out.println("Digite sua senha: ");
-                    senha = input.nextLine();
+                    if(equipeController.nenhumJogador()){
+                        aux.limpar_tela();
+                        System.out.println("Nenhum jogador cadastrado no sistema!...");
 
-                    jogador.acessarPerfil(senha, equipeController, partidaController);
+                    }else{
+                        equipeController.mostrarEquipesJogadores(0);
+                        
+                        aux.linhas();
+                        System.out.println("Digite o índice da equipe que você participa: ");
+                        id_equipe = input.nextInt();
 
-                
+                        input.nextLine();
+
+                        System.out.println("Digite sua senha: ");
+                        senha = input.nextLine();
+
+                        for(int i = 0; i < equipeController.getEquipes().size(); i++){
+                            if(id_equipe == equipeController.getEquipe(i).getIdEquipe()){
+                                achou_equipe = true;
+
+                            }
+                        }
+                        if(achou_equipe){
+
+                            Equipe equipeSelecionada = null;
+
+                            for (Equipe equipe : equipeController.getEquipes()) {
+                                if (equipe.getIdEquipe() == id_equipe) {
+                                    equipeSelecionada = equipe;
+                                    break;
+                                }
+                            }
+
+                            if (equipeSelecionada != null) {
+                                for (Jogador jogadoraux : equipeSelecionada.getJogadores()) {
+                                    if (jogadoraux.getSenha().equals(senha)) {
+                                        achou_senha = true;
+                                        jogador = jogadoraux;
+                                        break;
+                                    }
+                                }
+
+                                if (achou_senha) {
+                                    jogador.acessarPerfil(senha, equipeController, partidaController);
+
+                                }else{
+                                    aux.limpar_tela();
+                                    System.out.println("Senha incorreta ou jogador não pertence à equipe!");
+                                }
+                            }else {
+                                aux.limpar_tela();
+                                System.out.println("Equipe não encontrada!");
+                            }
+                        }
+                    }
 
                     break;
                 case 3:
@@ -72,8 +123,7 @@ public class Main {
                     System.out.println("Digite seu nome: ");
                     String nomeCompleto = input.nextLine();
                     Visitante visitante = new Visitante(nomeCompleto);
-                    
-                    
+                
 
                     visitante.acessarPerfil(equipeController, partidaController);
 

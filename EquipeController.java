@@ -5,7 +5,6 @@ public class EquipeController {
 
 	private ArrayList<Equipe> equipes;
 	private int id_aux_equipe;
-	private int id_util_equipe;
 
 	public EquipeController() {
 		this.equipes = new ArrayList<Equipe>();
@@ -17,7 +16,6 @@ public class EquipeController {
 	}
 
 	public void setIdEquipe(int choose){
-		
 		if(choose == 1){
 			this.id_aux_equipe = this.id_aux_equipe+1;
 		}else if(choose == -1){
@@ -47,12 +45,14 @@ public class EquipeController {
 		}else if(choose == 1){
 			for (Equipe auxEquipe : equipes) {
 				auxEquipe.mostrarInfoEquipe();
+
 			}
+			
 			System.out.println("");
 		}else if(choose == 2){
 			for (Equipe auxEquipe : equipes) {
 		
-				System.out.println("Nome do Time: "+auxEquipe.getNomeEquipe()+"\n");
+				System.out.println("Nome do Time: "+auxEquipe.getNomeEquipe());
 				getEquipe(auxEquipe.getIdEquipe()).mostrarJogadores(1);
 				
 				util.linhas();
@@ -62,6 +62,14 @@ public class EquipeController {
 			for (Equipe auxEquipe : equipes) {
 		
 				getEquipe(auxEquipe.getIdEquipe()).mostrarJogadores(2);
+				
+				util.linhas();
+
+			}
+		}else if(choose == 4){
+			for (Equipe auxEquipe : equipes) {
+		
+				getEquipe(auxEquipe.getIdEquipe()).mostrarJogadores(3);
 				
 				util.linhas();
 
@@ -78,7 +86,7 @@ public class EquipeController {
 		return true;
 	}
 
-	public boolean equipeCheia(){
+	public boolean equipesCheia(){
 		for(Equipe auxEquipe: equipes){
 			if(auxEquipe.getQuantJogador() != 5){
 				return false;

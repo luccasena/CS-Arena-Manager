@@ -9,6 +9,7 @@ public class PartidaController {
 	public PartidaController(Partida partida) {
 		this.partidas = new ArrayList<Partida>();
 	}
+	
 	public PartidaController() {
 		this.partidas = new ArrayList<Partida>();
 	}
@@ -17,14 +18,17 @@ public class PartidaController {
 		partidas.add(partida);
 	}
 
-	public void setIdPartida(int id_aux_partida){
-		this.id_aux_partida = id_aux_partida;
+	public void setIdPartida(int choose){
+		if(choose == 1){
+			this.id_aux_partida = this.id_aux_partida+1;
+		}else if(choose == -1){
+			this.id_aux_partida = this.id_aux_partida-1;
+		}
 	}
 
 	public int getIdPartida(){
 		return this.id_aux_partida;
 	}
-
 
 	public ArrayList<Partida> getPartidas() {
 		return partidas;
@@ -36,12 +40,23 @@ public class PartidaController {
 
 	public void mostrarPartidas(int choose) {
 		if(choose == 1){
-
-		}else if(choose == 2){
-
+			for(Partida aux_partida: partidas){
+				aux_partida.mostrarDetalhes();
+			}
 		}
 		
 		
 	}
 
+	public void menu_atualizar_partidas() {
+		utils util = new utils();
+        util.linhas();
+        System.out.println("          Gerenciador de Partidas           ");
+        util.linhas();
+        System.out.println("[1] - Definir Vencedor da Partida e Placar;");
+        System.out.println("[2] - Definir Mapas das Partidas;");
+        System.out.println("[0] - Sair do Gerenciador;");
+        util.linhas();
+
+    }
 }

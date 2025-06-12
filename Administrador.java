@@ -1,25 +1,58 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Administrador extends Usuario implements acessoPlataforma{
 
 	private String senha = " ";	
 
-	public Jogador criarJogador() {
+	public Jogador criarJogador(ArrayList<Equipe> equipes) {
 		utils util = new utils();
 		Scanner input = new Scanner(System.in);
 
 		int escolha_classe = 0;
         int escolha_mapa = 0;
+		int experienciaAnos = -1;
         String classe = "";
         String preferenciaMapa = "";
+		String nickname = "";
+		boolean nicknameDisponivel = false;
 
-        System.out.println("Digite o nome completo do Jogador: ");
-        String nomeCompleto = input.nextLine();
+		// Tratamento de Erro: Nome ✅
+		while (!nicknameDisponivel) {
+			System.out.println("Digite o nickname do Jogador: ");
+			nickname = input.nextLine().trim();
 
+			if (nickname.isEmpty()) {
+				util.limpar_tela();
+				System.out.println("Nickname Inválido! Tente novamente...");
+				util.linhas();
+				continue; // volta para o início do while
+			}
+
+			boolean encontrado = false;
+
+			for (Equipe equipe_aux : equipes) {
+				for (Jogador jogador_aux : equipe_aux.getJogadores()) {
+					if (jogador_aux.getNome().equalsIgnoreCase(nickname)) {
+						encontrado = true;
+						util.limpar_tela();
+						System.out.println("Nickname não disponível! Tente novamente...");
+						util.linhas();
+						break;
+					}
+				}
+				if (encontrado) break;
+			}
+
+			if (!encontrado) {
+				nicknameDisponivel = true;
+			}
+		}		
+
+		// Tratamento de Erro: Classe ✅
         while(true){
             try {
                 util.linhas();
@@ -30,70 +63,77 @@ public class Administrador extends Usuario implements acessoPlataforma{
 									"[3] AWP\n" +
 									"[4] Playmaker\n" +
 									"[5] Support\n"+
-									"[6] Rifler\n");
+									"[6] Rifler");
                 util.linhas();
                 System.out.println("Digite a classe do Jogador baseado nos índices acima: ");
                 escolha_classe = input.nextInt();
             }catch (Exception e) {
-                util.limpar_tela();
                 System.out.println("Ocorreu um erro! Tente Novamente...");
                 util.linhas();
+
             }if(escolha_classe >= 1 && escolha_classe <= 6){
                 break;
+
             }else{
                 input.nextLine();
                 util.limpar_tela();
                 System.out.println("Opção Inválida! Escolha uma opção entre 1 a 6");
-                util.linhas();
+
             }
         }
-
         switch(escolha_classe){
-            case 1:
-                classe = "Entry Fragger";
-                break;
-
-            case 2:
-                classe = "Lurker";
-                break;
-
-            case 3:
-                classe = "AWP";
-                break;
-
-            case 4:
-                classe = "Playmaker";
-                break;
-
-            case 5:
-                classe = "Support";
-                break;
-
-			case 6:
-				classe = "Rifler";
-				break;
+            case 1: classe = "Entry Fragger"; break;
+            case 2: classe = "Lurker"; break;
+			case 3: classe = "AWP"; break;
+            case 4: classe = "Playmaker"; break;
+            case 5: classe = "Support"; break;
+			case 6: classe = "Rifler"; break;
         }
 
-        System.out.println("Digite os anos de experiência do Jogador: ");
-        int experienciaAnos = input.nextInt();
+		util.linhas();
 
+		// Tratamento de Erro: experienciaAnos ✅
+		while(true){
+			try {
+				System.out.println("Digite os anos de experiência do Jogador: ");
+				experienciaAnos = input.nextInt();
 
+			}catch(Exception e){
+				util.limpar_tela();
+				System.out.println("Ocorreu um erro! Tente Novamente...");
+				util.linhas();
+
+			}
+			if(experienciaAnos >= 0){
+				break;
+
+			}else{
+				input.nextLine();
+				util.limpar_tela();
+				System.out.println("Opção Inválida! tente novamente...");
+				util.linhas();
+
+			}
+		}
+
+		// Tratamento de Erro: Mapas ✅
         while(true){
             try {
                 util.linhas();
                 System.out.printf("Mapas Disponíveis:\n");
                 util.linhas();
                 System.out.println( "[1] Mirage\n" +
-                        "[2] Train\n" +
-                        "[3] Vertigo\n" +
-                        "[4] Nuke\n" +
-                        "[5] Ancient\n"+
-                        "[6] Inferno\n"+
-                        "[7] Overpass\n"+
-                        "[8] Dust II");
+									"[2] Train\n" +
+									"[3] Vertigo\n" +
+									"[4] Nuke\n" +
+									"[5] Ancient\n"+
+									"[6] Inferno\n"+
+									"[7] Overpass\n"+
+									"[8] Dust II");
                 util.linhas();
                 System.out.println("Digite o mapa preferido do Jogador baseado nos índices acima: ");
                 escolha_mapa = input.nextInt();
+
             }catch(Exception e){
                 util.limpar_tela();
                 System.out.println("Ocorreu um erro! Tente Novamente...");
@@ -106,53 +146,59 @@ public class Administrador extends Usuario implements acessoPlataforma{
                 input.nextLine();
                 util.limpar_tela();
                 System.out.println("Opção Inválida! Escolha uma opção entre 1 a 8");
-                util.linhas();
 
             }
         }
-
         switch(escolha_mapa){
-            case 1:
-                preferenciaMapa = "Mirage";
-                break;
-
-            case 2:
-                preferenciaMapa = "Train";
-                break;
-
-            case 3:
-                preferenciaMapa = "Vertigo";
-                break;
-
-            case 4:
-                preferenciaMapa = "Nuke";
-                break;
-
-            case 5:
-                preferenciaMapa = "Ancient";
-                break;
-
-            case 6:
-                preferenciaMapa = "Inferno";
-                break;
-
-            case 7:
-                preferenciaMapa = "Overpass";
-                break;
-
-            case 8:
-                preferenciaMapa = "Dust II";
-                break;
-
-        }
-		return new Jogador(nomeCompleto, classe, experienciaAnos, preferenciaMapa);
+				case 1: preferenciaMapa = "Mirage"; break;
+				case 2: preferenciaMapa = "Train"; break;
+				case 3: preferenciaMapa = "Vertigo"; break;
+				case 4: preferenciaMapa = "Nuke"; break;
+				case 5: preferenciaMapa = "Ancient"; break;
+				case 6: preferenciaMapa = "Inferno"; break;
+				case 7: preferenciaMapa = "Overpass"; break;
+				case 8: preferenciaMapa = "Dust II"; break;
+			}
+		
+		return new Jogador(nickname, classe, experienciaAnos, preferenciaMapa);
 	}
 
-	public Equipe criarEquipe(int id_aux_equipe) {
+	public Equipe criarEquipe(ArrayList<Equipe> equipes,int id_aux_equipe) {
+		utils util = new utils();
 		Scanner input = new Scanner(System.in);
+		String nomeEquipe = "";
+		boolean nomeEquipeDisponivel = false;
 
-        System.out.println("Digite o nome do Equipe: ");
-        String nomeEquipe = input.nextLine();
+		while (!nomeEquipeDisponivel) {
+			System.out.println("Digite o nome do Equipe: ");
+        	nomeEquipe = input.nextLine();
+
+			if (nomeEquipe.isEmpty()) {
+				util.limpar_tela();
+				System.out.println("Nome de Equipe Inválido! Tente novamente...");
+				util.linhas();
+				continue; // volta para o início do while
+			}
+
+			boolean encontrado = false;
+
+			for (Equipe equipe_aux : equipes) {
+				for (Jogador jogador_aux : equipe_aux.getJogadores()) {
+					if (jogador_aux.getNome().equalsIgnoreCase(nomeEquipe)) {
+						encontrado = true;
+						util.limpar_tela();
+						System.out.println("Nome de Equipe não disponível! Tente novamente...");
+						util.linhas();
+						break;
+					}
+				}
+				if (encontrado) break;
+			}
+
+			if (!encontrado) {
+				nomeEquipeDisponivel = true;
+			}
+		}	
 
         System.out.println("Digite o país de origem: ");
         String paisOrigem = input.nextLine();
@@ -163,81 +209,292 @@ public class Administrador extends Usuario implements acessoPlataforma{
 
 	public Partida criarPartida(EquipeController equipes, int id_aux_partida){ 
 
-		utils aux = new utils();
+		utils util = new utils();
         Scanner input = new Scanner(System.in);
 
-        String equipe1Nome = "";
+		DateTimeFormatter formatter_day = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		DateTimeFormatter formatter_hora = DateTimeFormatter.ofPattern("HH:mm");
+
+        Equipe equipe1 = null;
         int id_equipe1 = 0;
-        String equipe2Nome = "";
+        Equipe equipe2 = null;
         int id_equipe2 = 0;
 
         boolean achou_equipe = false;
 
-        System.out.println("Digite a data da partida (MM/DD/AAAA): ");
-        String diaStr = input.nextLine();
-		LocalDate dia = LocalDate.parse(diaStr);
+		LocalDate dia = null;
+		LocalTime horario = null;
 
-        System.out.println("Digite o horário da partida (HH:MM): ");
-        String horarioStr = input.nextLine();
-		LocalDateTime horario = LocalDateTime.parse(horarioStr);
+		while(true){
+			try {
+				System.out.println("Digite a data da partida mm/dd/aaaa: ");
+				String diaStr = input.nextLine();
+				dia = LocalDate.parse(diaStr, formatter_day);
 
-        aux.linhas();
+			}catch(Exception e){
+				util.limpar_tela();
+				System.out.println("Data inválida! Formato correto: dd/mm/aaaa");
+				util.linhas();
+			}
+			if(dia != null){
+				break;
+			}
+
+		}
+
+		while(true){
+			try {
+				System.out.println("Digite o horário da partida HH:MM: ");
+				String horarioStr = input.nextLine();
+				horario = LocalTime.parse(horarioStr, formatter_hora);
+
+			} catch (Exception e) {
+				util.limpar_tela();
+				System.out.println("Horário inválido! Formato correto: HH:MM ");
+				util.linhas();
+			}if(horario != null){
+				break;
+			}
+		}
+
+       	util.linhas();
 
         while(true) {
 
-			equipes.mostrarEquipesJogadores(2);
-            System.out.println("1- Digite o ID de um equipe: ");
-            id_equipe1 = input.nextInt();
+			try{
+				equipes.mostrarEquipesJogadores(0);
+				util.linhas();
+				System.out.println("\n1- Digite o ID de um equipe: ");
+				id_equipe1 = input.nextInt();
 
-            for (int i = 0; i < equipes.getEquipes().size(); i++) {
-                if (id_equipe1 == equipes.getEquipe(i).getIdEquipe()) {
-                    equipe1Nome = equipes.getEquipe(i).getNomeEquipe();
-                    achou_equipe = true;
-                    break;
-                }
-            }
-            if (achou_equipe) {
-                break;
-            } else {
-                aux.limpar_tela();
-                System.out.println("equipe não encontrado! Tente novamente...");
-                aux.linhas();
-            }
+				for (int i = 0; i < equipes.getEquipes().size(); i++) {
+					if (id_equipe1 == equipes.getEquipe(i).getIdEquipe()) {
+						equipe1 = equipes.getEquipe(i);
+						achou_equipe = true;
+						break;
+					}
+				}
+				if (achou_equipe) {
+					break;
+
+				} else {
+					util.limpar_tela();
+					System.out.println("Equipe não encontrada! Tente novamente...");
+					util.linhas();
+
+				}
+			}
+			catch(Exception e){
+				util.limpar_tela();
+					System.out.println("Resposta Inválida! Tente novamente...");
+					util.linhas();
+			}
+
         }
 
-        aux.linhas();
+       	util.linhas();
+		achou_equipe = false;
+
         while(true){
-            aux.limpar_tela();
+            try{
+				equipes.mostrarEquipesJogadores(0);
+				System.out.println("\n2- Digite o ID de um equipe: ");
+				id_equipe2 = input.nextInt();
 
-            equipes.mostrarEquipesJogadores(2);
-            System.out.println("2- Digite o ID de um equipe: ");
-            id_equipe2 = input.nextInt();
+				input.nextLine();
 
-            input.nextLine();
+				for (int i = 0; i < equipes.getEquipes().size(); i++) {
+					if (id_equipe1 == id_equipe2){
+						break;
+					}
+					if (id_equipe2 == equipes.getEquipe(i).getIdEquipe()) {
+						equipe2 = equipes.getEquipe(i);
+						achou_equipe = true;
+						break;
+					}
+				}
+				if(achou_equipe){
+					break;
+				}else{
+					util.limpar_tela();
+					System.out.println("Equipe não encontrada ou ID repetido! Tente novamente...");
+					util.linhas();
+				}
+			}catch(Exception e){
+				util.limpar_tela();
+					System.out.println("Resposta Inválida! Tente novamente...");
+					util.linhas();
+			}
+    	}
 
-            for (int i = 0; i < equipes.getEquipes().size(); i++) {
-                if (id_equipe2 == equipes.getEquipe(i).getIdEquipe()) {
-                    equipe2Nome = equipes.getEquipe(i).getNomeEquipe();
-                    achou_equipe = true;
-                    break;
-                }
-            }
-            if(achou_equipe){
-                break;
-            }else{
-                aux.limpar_tela();
-                System.out.println("equipe não encontrado! Tente novamente...");
-                aux.linhas();
-            }
-
-        }
-
-		return new Partida(id_aux_partida, dia, horario, equipe1Nome, equipe2Nome);
+		return new Partida(id_aux_partida, dia, horario, equipe1, equipe2);
 	}
 	
-	public Partida atualizarVencedorPlacar(Partida partida, String vencedor, String placar){
+	public Partida atualizarVencedorPlacar( Partida partida){
+		Scanner input = new Scanner(System.in);
+		utils util = new utils();
+
+		int escolha_mapa = 0; 
+		String preferenciaMapa = "";
+		ArrayList<String> mapas = new ArrayList<String>();
+
+		String vencedor = "";
+		String placar = "";
+
+		while(true){
+			while(true){
+				try {
+					util.linhas();
+					System.out.printf("Mapas Disponíveis: ");
+
+					System.out.println("");
+					util.linhas();
+					System.out.println( "[1] Mirage\n" +
+										"[2] Train\n" +
+										"[3] Vertigo\n" +
+										"[4] Nuke\n" +
+										"[5] Ancient\n"+
+										"[6] Inferno\n"+
+										"[7] Overpass\n"+
+										"[8] Dust II");
+					
+					util.linhas();
+					System.out.println("Digite o mapa que será jogado baseado nos índices acima: ");
+					escolha_mapa = input.nextInt();
+
+				}catch(Exception e){
+					util.limpar_tela();
+					System.out.println("Ocorreu um erro! Tente Novamente...");
+					util.linhas();
+
+				}if(escolha_mapa >= 1 && escolha_mapa <= 8){
+					break;
+
+				}else{
+					input.nextLine();
+					util.limpar_tela();
+					System.out.println("Opção Inválida! Escolha uma opção entre 1 a 8");
+					util.linhas();
+
+				}
+			}
+
+			switch(escolha_mapa){
+				case 1: preferenciaMapa = "Mirage"; break;
+				case 2: preferenciaMapa = "Train"; break;
+				case 3: preferenciaMapa = "Vertigo"; break;
+				case 4: preferenciaMapa = "Nuke"; break;
+				case 5: preferenciaMapa = "Ancient"; break;
+				case 6: preferenciaMapa = "Inferno"; break;
+				case 7: preferenciaMapa = "Overpass"; break;
+				case 8: preferenciaMapa = "Dust II"; break;
+			}
+
+			mapas.add(preferenciaMapa);
+			util.linhas();
+			System.out.printf("Mapas Adicionados: ");
+					for(String mapString: mapas){
+						if(mapas.size() == 0){
+							continue;						
+						}else{
+							System.out.printf("%s ", mapString);
+						}
+					}
+
+			int res;
+			util.linhas();
+
+			while (true){
+				try{
+					System.out.println("Deseja adicionar mais mapas? [1] - sim; [0] - [não]");
+					res = input.nextInt();
+					input.nextLine();
+
+					if(res == 0 || res == 1){
+						break;
+					}else{
+						util.limpar_tela();
+						System.out.println("Opção inválida! Tente novamente...");
+						util.linhas();
+					}
+					
+				}catch (Exception e){
+					util.limpar_tela();
+					System.out.println("Opção inválida! Tente novamente...");
+					util.linhas();
+					input.nextLine();
+				}
+			}
+
+			util.limpar_tela();
+			if(res == 0){
+				break;
+			}
+		}
+
+		int id_vencedor;
+
+		while(true){	
+			try{
+				partida.mostrarEquipes();
+				util.linhas();
+				System.out.println("Digite o ID da equipe vencedora: ");
+				id_vencedor = input.nextInt();
+
+				if(id_vencedor == partida.getEquipe1().getIdEquipe()){
+					break;
+
+				}else if(id_vencedor == partida.getEquipe2().getIdEquipe()){
+					break;
+
+				}else{
+					util.limpar_tela();
+					System.out.println("ID incorreto! Tente novamente...");
+					util.linhas();
+
+				}
+
+			}catch(Exception e){
+				util.limpar_tela();
+				System.out.println("Opção inválida! Tente novamente...");
+				util.linhas();
+
+			}
+		}
+
+		if (id_vencedor == partida.getEquipe1().getIdEquipe()) {
+			vencedor = partida.getEquipe1().getNomeEquipe();	
+
+		} else if (id_vencedor == partida.getEquipe2().getIdEquipe()) {
+			vencedor = partida.getEquipe2().getNomeEquipe();	
+
+		}
+
+		input.nextLine();
+		util.limpar_tela();
+
+		for(String mapString: mapas){
+			if(mapas.size() == 0){
+				continue;						
+			}else if(mapas.size() == 1){
+				util.linhas();
+				System.out.printf("Mapas Adicionados: %s ", mapString);
+
+			}else{
+				System.out.printf("%s ", mapString);
+				}
+		}
+		
+		System.out.println("");
+		util.linhas();
+		System.out.println("Digite o placar da partida: exemplo -> 3x1");
+		placar = input.nextLine();
+
 		partida.setVencedor(vencedor);
 		partida.setPlacar(placar);
+		partida.setMapas(mapas);
+		
+		util.limpar_tela();
 
 		return partida;
 
@@ -279,19 +536,15 @@ public class Administrador extends Usuario implements acessoPlataforma{
 		utils util = new utils();
 		if(senha.equals(this.senha)){
 
-
 			util.limpar_tela();
+
 			System.out.println("Nível de Acesso - Administrador;");
 			Scanner input = new Scanner(System.in);
 
 			Equipe equipe;
 
-			int id_util_equipe = 0;
-			int id_util_partida = 0;
-	
 			while(true){
 
-				Partidas partida;
 				int escolha;
 
 				while(true) {
@@ -318,13 +571,14 @@ public class Administrador extends Usuario implements acessoPlataforma{
 						System.out.println("[1] - Cadastrar Equipe");
 						util.linhas();
 
-						equipe = criarEquipe(equipeController.getIdEquipe());
+						equipe = criarEquipe(equipeController.getEquipes(), equipeController.getIdEquipe());
+
 						equipeController.addEquipe(equipe);
 
 						equipeController.setIdEquipe(1);
 
 						util.limpar_tela();
-						System.out.printf("Equipe %s cadastrada com sucesso {%d}!\n", equipe.getNomeEquipe(), equipe.getIdEquipe());
+						System.out.printf("Equipe '%s' cadastrada com sucesso {%d}!\n", equipe.getNomeEquipe(), equipe.getIdEquipe());
 
 						break;
 					case 2:
@@ -340,7 +594,7 @@ public class Administrador extends Usuario implements acessoPlataforma{
 							System.out.println("Informações sobre as Equipes:" );
 							util.linhas();
 							equipeController.mostrarEquipesJogadores(1);
-							System.out.println("\nPressione qualquer tecla para voltar ao menu...");
+							System.out.println("\nPressione Enter tecla para voltar ao menu...");
             				input.nextLine(); 
 							util.limpar_tela();
 
@@ -353,41 +607,69 @@ public class Administrador extends Usuario implements acessoPlataforma{
 						util.linhas();
 
 						if(equipeController.getEquipes().isEmpty()){
-							System.out.println("Não existe Equipes a serem removidos!...");
-							System.out.println("Adicione um Equipe selecionando a opção [1]!");
+							System.out.println("Não existe Equipes a serem removidas!...");
+							System.out.println("Adicione uma Equipe selecionando a opção [1]!");
 
 						}else{
 							if (equipeController.getEquipes().isEmpty()) { // se tiver vazio
 								System.out.println("Nenhum Equipe cadastrado para remover.");
-							} else {
-								equipeController.mostrarEquipesJogadores(0); // mostra as Equipes para exclusão
-								System.out.println("Digite o ID do Equipe que deseja remover: ");
+							}else{
+								while(true){	
+									int idRemover = -2;
 
-								int idRemover = input.nextInt();
-								input.nextLine(); // limpa
+									try{
+										equipeController.mostrarEquipesJogadores(0); // mostra as Equipes para exclusão
+										util.linhas();
+										System.out.println("Digite o ID da Equipe que deseja remover ou digite [-1] para sair: ");
 
-								boolean removido = false;
-								for (int i = 0; i < equipeController.getEquipes().size(); i++) { // se o id que foi pesquisado for igual ao id do Equipe
-									if (equipeController.getEquipes().get(i).getIdEquipe() == idRemover) {
+										idRemover = input.nextInt();
+										// limpa
+
+									}catch (Exception e){
 										util.limpar_tela();
-										System.out.println("Equipe '" + equipeController.getEquipes().get(i).getNomeEquipe() + "' (ID: " + idRemover + ") removido com sucesso!");
-										equipeController.getEquipes().remove(i); // AQUI: removemos o Equipe da lista principal
-										equipeController.setIdEquipe(-1);
+										System.out.println("Opção Inválida! Tente novamente...");
 
-										for (int j = idRemover; j < equipeController.getEquipes().size(); j++) {
-            								equipeController.getEquipes().get(j).setIdEquipe(j);
-        								}
+									}
 
+									if(idRemover == -1){
+											util.limpar_tela();
+											break;
+									}
+
+									boolean removido = false;
+
+									for (int i = 0; i < equipeController.getEquipes().size(); i++) { // se o id que foi pesquisado for igual ao id do Equipe
+										if (equipeController.getEquipes().get(i).getIdEquipe() == idRemover) {
+											util.limpar_tela();
+											System.out.println("Equipe '" + equipeController.getEquipes().get(i).getNomeEquipe() + "' (ID: " + idRemover + ") removido com sucesso!");
+											equipeController.getEquipes().remove(i); // AQUI: removemos o Equipe da lista principal
+											equipeController.setIdEquipe(-1);
+											removido = true;
+
+											for (int j = idRemover; j < equipeController.getEquipes().size(); j++) {
+												equipeController.getEquipes().get(j).setIdEquipe(j);
+											}
+
+											break;
+
+										}else if(idRemover == -1){
+											break;
+										}
+									}
+
+									// "não removido" depois de olhar todos os Equipes:
+									if (!removido) {
+										util.limpar_tela();
+										System.out.println("ID de Equipe não encontrado! Tente novamente..."); // avisa que não achou o ID.
+										util.limpar_tela();
+									}else if(removido || idRemover == -1){
 										break;
 									}
-								}
-								// "não removido" depois de olhar todos os Equipes:
-								if (!removido) {
-									System.out.println("ID de Equipe não encontrado."); // avisa que não achou o ID.
-								}
 
+									
+								}
+							
 							}
-
 						}
 
 						break;
@@ -400,7 +682,7 @@ public class Administrador extends Usuario implements acessoPlataforma{
 							System.out.println("Não existe Equipes para o cadastro do Jogador!...");
 							System.out.println("Adicione um Equipe selecionando a opção [1]!");
 
-						}else if(equipeController.equipeCheia()){
+						}else if(equipeController.equipesCheia()){
 							System.out.println("Equipes cheias para o cadastro do Jogador!...");
 							System.out.println("Adicione um Equipe selecionando a opção [1]!");
 							
@@ -408,22 +690,45 @@ public class Administrador extends Usuario implements acessoPlataforma{
 							boolean encontrou_Equipe = false;
 							int escolha_cadastro;
 
-							Jogador jogador = criarJogador();
+							Jogador jogador = criarJogador(equipeController.getEquipes());
 							util.limpar_tela();
 
+							// Tratamento de Erro: Equipes ✅
 							while(true){
-								System.out.println("Equipes Cadastrados:" );
+								System.out.println("Equipes Cadastradas:" );
 								util.linhas();
+								
+								int id_Equipe = -1;
 
-								equipeController.mostrarEquipesJogadores(1); 
+								while(true){	
+									try{
+										equipeController.mostrarEquipesJogadores(1); 
+										System.out.println("Digite o ID do Equipe desejado para o cadastro do jogador: ");
+										id_Equipe = input.nextInt();
 
-								System.out.println("Digite o ID do Equipe desejado para o cadastro do jogador: ");
+										if(id_Equipe >= 0 && id_Equipe <= equipeController.getEquipes().getLast().getIdEquipe()){
+											break;
+										}else{
+											util.limpar_tela();
+											System.out.println("Índice Incorreto! Tente Novamente...");
+											util.linhas();
 
-								int id_Equipe = input.nextInt();
+										}
+
+									}catch(Exception e){
+										util.limpar_tela();
+										input.nextLine();
+										System.out.println("Opção Inválida! Tente Novamente...");
+										util.linhas();
+									}
+								}
+
+								equipeController.getEquipe(id_Equipe);
+
 								util.limpar_tela();
 
 								for (int i = 0; i < equipeController.getEquipes().size(); i++) {
-									if (id_Equipe == equipeController.getEquipes().get(i).getIdEquipe()) {
+									if (id_Equipe == equipeController.getEquipes().get(i).getIdEquipe() && equipeController.getEquipes().get(i).getQuantJogador() < 5) {
 
 										equipeController.getEquipe(i).addJogador(jogador);
 										jogador.setEquipe(equipeController.getEquipe(i));
@@ -437,7 +742,7 @@ public class Administrador extends Usuario implements acessoPlataforma{
 								}
 								if (!encontrou_Equipe) {
 									util.limpar_tela();
-									System.out.println("ID não encontrado...");
+									System.out.println("ID não encontrado ou Equipe com limite máximo de integrantes...");
 									util.linhas();
 									System.out.println("[1]- Cancelar Cadastro;\n[2]- Adicionar em outro Equipe;");
 									util.linhas();
@@ -455,6 +760,7 @@ public class Administrador extends Usuario implements acessoPlataforma{
 								}
 
 							}
+						
 						}
 
 						break;
@@ -462,6 +768,8 @@ public class Administrador extends Usuario implements acessoPlataforma{
 						// Feature a ser produzida
 						System.out.println("[5] - Remover Jogador");
 						util.linhas();
+						boolean removeu_jogador = false;
+						String nomeJogador = "";
 
 
 						if(equipeController.nenhumJogador() || equipeController.getEquipes().isEmpty()){
@@ -469,32 +777,48 @@ public class Administrador extends Usuario implements acessoPlataforma{
 							System.out.println("Adicione um jogador selecionando a opção [4]!");
 
 						}else{
-							equipeController.mostrarEquipesJogadores(2);
-							System.out.println("Digite o nome do jogador para remove-lo:");
-							String nomeJogador = input.nextLine();
+							while(true){		
+								equipeController.mostrarEquipesJogadores(2);
+								System.out.println("Digite o nome do jogador para remove-lo ou [-1] para sair:");
+								nomeJogador = input.nextLine();
 
-							for(int i = 0;i < equipeController.getEquipes().size(); i++){
+								for(int i = 0;i < equipeController.getEquipes().size(); i++){
 
-								equipe = equipeController.getEquipe(i);
-								for (int j = 0; j < equipe.getJogadores().size(); j++) {
-									if (nomeJogador.equalsIgnoreCase(equipe.getJogador(j).getNome())) {
-										util.limpar_tela();
+									equipe = equipeController.getEquipe(i);
+									for (int j = 0; j < equipe.getJogadores().size(); j++) {
+										if (nomeJogador.equalsIgnoreCase(equipe.getJogador(j).getNome())) {
+											util.limpar_tela();
 
-										equipe.rmvJogador(equipe.getJogadores().remove(j));
-										System.out.println("Jogador " + nomeJogador + " removido com sucesso!");
-										break;
+											equipe.rmvJogador(equipe.getJogadores().remove(j));
+											System.out.println("Jogador '" + nomeJogador + "' removido com sucesso!");
+											removeu_jogador = true;
 
-									}else{
-										equipeController.nenhumJogador();
-										util.limpar_tela();
-										System.out.println("ERRO: Jogador '" +nomeJogador+ "' não encontrado!");
+											break;
 
+										}else if(nomeJogador.equalsIgnoreCase("-1")){
+											
+											break;
+										}else{
+											util.limpar_tela();
+											System.out.println("ERRO: Jogador '" +nomeJogador+ "' não encontrado!");
+										}
 									}
+								}
+
+								if(removeu_jogador || nomeJogador.equalsIgnoreCase("-1")){
+									break;
+								}
+							}	
+						}
+
+						if(removeu_jogador){
+							util.limpar_tela();
+							System.out.println("Jogador '"+nomeJogador+"' removido com sucesso!");
 
 
-    }
-							}
-
+						}else if(nomeJogador.equalsIgnoreCase("-1")){
+							util.limpar_tela();
+							
 						}
 
 						break;
@@ -504,15 +828,15 @@ public class Administrador extends Usuario implements acessoPlataforma{
 						util.linhas();
 
 						if(equipeController.nenhumJogador()){
+							
 							System.out.println("Não existe jogadores a serem exibidos!...");
 							System.out.println("Adicione um jogador selecionando a opção [4]!");
 
 						}else{
 
-							equipeController.mostrarEquipesJogadores(3);
+							equipeController.mostrarEquipesJogadores(4);
 							System.out.println("\nPressione Enter para voltar ao menu...");
             				input.nextLine();
-
 							util.limpar_tela();
 
 						}
@@ -533,8 +857,8 @@ public class Administrador extends Usuario implements acessoPlataforma{
 							Partida partida_aux = criarPartida(equipeController, partidaController.getIdPartida());
 							
 							partidaController.addPartida(partida_aux);
+							partidaController.setIdPartida(1);
 
-							id_util_partida++;
 							util.limpar_tela();
 							System.out.println("Partida marcada com sucesso!");
 
@@ -545,29 +869,42 @@ public class Administrador extends Usuario implements acessoPlataforma{
 					case 8:
 						// Feature concluída
 						System.out.println("[8] - Histórico de Partidas");
-						util.linhas();
+
 
 						if(partidaController.getPartidas().isEmpty()){
 							System.out.println("Não existe partidas a serem exibidas...");
 							System.out.println("Adicione uma partida selecionando a opção [7]!");
 
 						}else{
-							partidaController.mostrarPartidas(2);
+							partidaController.mostrarPartidas(1);
+							System.out.println("\nPressione Enter tecla para voltar ao menu...");
+							input.nextLine();
 
 						}
+						util.limpar_tela();
 
 						break;
 					case 9:
 						// Feature a ser produzida
 						System.out.println("[9] - Atualizar Partidas");
-						util.linhas();
 
 						if(partidaController.getPartidas().isEmpty()){
 							System.out.println("Não existe partidas a serem atualizadas...");
 							System.out.println("Adicione uma partida selecionando a opção [7]!");
 
 						}else{
+			
+							partidaController.mostrarPartidas(1);
 							
+							util.linhas();
+							System.out.println("Digite o ID da partida que deseja ser modificada: ");
+							int idPartida = input.nextInt();
+							Partida partida3 = partidaController.getPartida(idPartida);
+
+							partida3 = atualizarVencedorPlacar(partida3);
+
+							util.limpar_tela();
+							System.out.printf("Partida {%d} atualizada com sucesso!\n", idPartida);
 							
 						}
 
@@ -594,5 +931,4 @@ public class Administrador extends Usuario implements acessoPlataforma{
 				System.out.println("Senha inválida! Tente novamente...");
 		}
 	}
-
 }
