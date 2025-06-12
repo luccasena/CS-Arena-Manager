@@ -45,12 +45,14 @@ public class EquipeController {
 		}else if(choose == 1){
 			for (Equipe auxEquipe : equipes) {
 				auxEquipe.mostrarInfoEquipe();
+
 			}
+			
 			System.out.println("");
 		}else if(choose == 2){
 			for (Equipe auxEquipe : equipes) {
 		
-				System.out.println("Nome do Time: "+auxEquipe.getNomeEquipe()+"\n");
+				System.out.println("Nome do Time: "+auxEquipe.getNomeEquipe());
 				getEquipe(auxEquipe.getIdEquipe()).mostrarJogadores(1);
 				
 				util.linhas();
@@ -60,6 +62,14 @@ public class EquipeController {
 			for (Equipe auxEquipe : equipes) {
 		
 				getEquipe(auxEquipe.getIdEquipe()).mostrarJogadores(2);
+				
+				util.linhas();
+
+			}
+		}else if(choose == 4){
+			for (Equipe auxEquipe : equipes) {
+		
+				getEquipe(auxEquipe.getIdEquipe()).mostrarJogadores(3);
 				
 				util.linhas();
 

@@ -1,22 +1,20 @@
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 public class Partida extends Administrador {
 
 	private int id_aux_partida;
 	private LocalDate dia;
 	private LocalTime horario;
-	private String equipe1;
-	private String equipe2;
+	private Equipe equipe1;
+	private Equipe equipe2;
 	private ArrayList<String> mapas;
 	private String vencedor;
 	private String placar;
 
-	public Partida(int id_aux_partida, LocalDate dia, LocalTime horario, String equipe1, String equipe2){
+	public Partida(int id_aux_partida, LocalDate dia, LocalTime horario, Equipe equipe1, Equipe equipe2){
 		this.id_aux_partida = id_aux_partida;
 		this.dia = dia;
 		this.horario = horario;
@@ -33,12 +31,18 @@ public class Partida extends Administrador {
 		this.placar = placar;
 	}
 
+	public void setMapas(ArrayList<String> mapas) {
+		this.mapas = mapas;
+	}
+
 	public void mostrarDetalhes() {
 		utils util = new utils();
 		boolean mapa_vazio = false;
 
-		System.out.printf("[%d] - Identificador da Partida:", id_aux_partida);
-		System.out.println(equipe1+" X "+equipe2);
+		util.linhas();
+		System.out.printf("Identificador da Partida - [%d]:\n", id_aux_partida);
+		util.linhas();
+		System.out.println("Partida: "+equipe1.getNomeEquipe()+" X "+equipe2.getNomeEquipe());
 		System.out.println("  - Dia:  " + dia);
 		System.out.println("  - Horario:  " + horario);
 
@@ -59,11 +63,21 @@ public class Partida extends Administrador {
 			System.out.println("Nenhum mapa registrado!");
 		} else{
 			for(String mapa: mapas){
-				System.out.println("-" + mapa);
+				System.out.println("- " + mapa);
 			}
 		}
-		util.linhas();
+	}
 
+	public void mostrarEquipes(){
+		System.out.printf("[%d] - %s \n[%d] - %s\n",equipe1.getIdEquipe(),equipe1.getNomeEquipe(), equipe2.getIdEquipe(), equipe2.getNomeEquipe());
+	}
+
+	public Equipe getEquipe1(){
+		return equipe1;
+	}
+
+	public Equipe getEquipe2(){
+		return equipe2;
 	}
 
 }

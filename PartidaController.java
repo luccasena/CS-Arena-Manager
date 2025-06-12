@@ -39,18 +39,24 @@ public class PartidaController {
 	}
 
 	public void mostrarPartidas(int choose) {
-
 		if(choose == 1){
-
 			for(Partida aux_partida: partidas){
 				aux_partida.mostrarDetalhes();
-		}
-
-		}else if(choose == 2){
-
+			}
 		}
 		
 		
 	}
 
+	public void menu_atualizar_partidas() {
+		utils util = new utils();
+        util.linhas();
+        System.out.println("          Gerenciador de Partidas           ");
+        util.linhas();
+        System.out.println("[1] - Definir Vencedor da Partida e Placar;");
+        System.out.println("[2] - Definir Mapas das Partidas;");
+        System.out.println("[0] - Sair do Gerenciador;");
+        util.linhas();
+
+    }
 }

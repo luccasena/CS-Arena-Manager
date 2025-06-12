@@ -67,7 +67,6 @@ public class Visitante extends Usuario {
                         equipeController.mostrarEquipesJogadores(2);
                         System.out.println("\nPressione Enter para voltar ao menu...");
                         input.nextLine(); 
-
                         util.limpar_tela();
 
                     }
@@ -78,7 +77,7 @@ public class Visitante extends Usuario {
                     System.out.println("[2] - Mostrar Jogadores;");
                     util.linhas();
 
-                     if(equipeController.getEquipes().isEmpty()){
+                     if(equipeController.nenhumJogador()){
 							System.out.println("Não existe Jogadores a serem exibidas...");
 
 					}else{
@@ -94,14 +93,16 @@ public class Visitante extends Usuario {
                 case 3:
                     // Feature  Concluída.
                     System.out.println("[3] - Histórico de Partidas;");
-                    util.linhas();
 
                     if(partidaController.getPartidas().isEmpty()){
+                        util.linhas();
                         System.out.println("Não existe partidas a serem exibidas...");
-                        System.out.println("Adicione uma partida selecionando a opção [7]!");
 
 					}else{
-                        partidaController.mostrarPartidas(2);
+                        partidaController.mostrarPartidas(1);
+                        System.out.println("\nPressione Enter para voltar ao menu...");
+                        input.nextLine(); 
+                        util.limpar_tela();
 
 					}
                     

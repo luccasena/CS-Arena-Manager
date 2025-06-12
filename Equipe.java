@@ -8,12 +8,15 @@ public class Equipe extends Administrador {
 	private int numVitorias;
 	private int numDerrotas;
 	private ArrayList<Jogador> jogadores;
-	private int quantidadeJogadores = 0;
+	private int quantidadeJogadores;
 
 	public Equipe(String nomeEquipe, String paisOrigem, int id_aux_equipe) {
 		this.nomeEquipe = nomeEquipe;
 		this.paisOrigem = paisOrigem;
 		this.idEquipe = id_aux_equipe;
+		this.numVitorias = 0;
+		this.numDerrotas = 0;
+		this.quantidadeJogadores = 0;
 		this.jogadores = new ArrayList<Jogador>();
 
 	}
@@ -31,11 +34,11 @@ public class Equipe extends Administrador {
 	public void mostrarInfoEquipe() {
 		utils util = new utils();
 
-		System.out.printf("[%d] Nome da Equipe:  %s \n", idEquipe+1,nomeEquipe);
+		System.out.printf("Id da Equipe: [%d]\n", idEquipe);
+		System.out.printf("- Nome da Equipe:  %s \n",nomeEquipe);
         System.out.println("  - País de Origem:  " + paisOrigem);
         System.out.println("  - Número de Vitórias:  " + numVitorias);
         System.out.println("  - Número de Derrotas:  " + numDerrotas);
-        System.out.println("  - Id da Equipe:  " + idEquipe);
 
         System.out.println("\nIntegrantes da Equipe: ");
 
@@ -59,8 +62,20 @@ public class Equipe extends Administrador {
 			for (Jogador aux2 : jogadores) {
 					aux2.mostrarJogador(2);
 				}
+		}else if(choose == 3){
+			for (Jogador aux2 : jogadores) {
+					aux2.mostrarJogador(3);
+				}
 		}
     }
+
+	public void aumentarVitoria(){
+		this.numVitorias += numVitorias;
+	}
+
+	public void aumentarDerrota(){
+		this.numDerrotas += numDerrotas;
+	}
 
 	public String getNomeEquipe(){
 		return this.nomeEquipe;
